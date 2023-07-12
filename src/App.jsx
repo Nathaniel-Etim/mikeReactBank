@@ -30,7 +30,7 @@ const router = createBrowserRouter(
 
       {/* route to when user is logedin */}
       <Route path="logedIn" element={<LogedInNavBar />}>
-        <Route path="userDashBoard" element={<DashBoardContainer />} />
+        <Route index element={<DashBoardContainer />} />
       </Route>
     </>
   )
