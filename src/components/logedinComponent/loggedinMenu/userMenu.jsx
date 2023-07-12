@@ -10,7 +10,6 @@ import {
   BsDoorOpenFill,
   BsDot,
 } from "react-icons/bs";
-// import {B} from "react-icons/bi"
 
 function UserSideBar() {
   const [menuItem, setMenuUtem] = useState([
@@ -85,6 +84,7 @@ const SideBar = styled.div`
   box-sizing: border-box;
   border-right: 0.6px solid #8b89899f;
   height: 90vh;
+  /* flex: 0.6; */
   gap: 25px;
   width: 209px;
   overflow-y: scroll;

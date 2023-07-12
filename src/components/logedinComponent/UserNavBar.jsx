@@ -10,9 +10,9 @@ function UserNavBar() {
       <NavBar />
       <UserSection>
         <UserSideBar />
-        <mian>
+        <OtherContent>
           <Outlet />
-        </mian>
+        </OtherContent>
       </UserSection>
     </UserLogedinContainer>
   );
@@ -33,4 +33,10 @@ const UserSection = styled.div`
   padding: 5px 10px;
   height: 90vh;
   overflow: hidden;
+`;
+
+const OtherContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;
