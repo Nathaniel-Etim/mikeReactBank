@@ -10,6 +10,7 @@ import AboutPage from "./pages/aboutPage/aboutPage";
 import ContactPage from "./pages/contactPage/ContactPage";
 import LoginPage from "./pages/loginPage/LoginPage";
 import LoanPage from "./pages/loanpage/LoanPage";
+import LogedInNavBar from "./components/logedinComponent/logedinNavBar/logedInNavBar";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,7 +21,13 @@ const router = createBrowserRouter(
         <Route path="Contact" element={<ContactPage />} />
         <Route path="Loan" element={<LoanPage />} />
       </Route>
+      {/* route to the login page */}
       <Route path="Login" element={<LoginPage />} />
+
+      {/* route to when user is logedin */}
+      <Route path="logedIn" element={<LogedInNavBar />}>
+        {/*  */}
+      </Route>
     </>
   )
 );

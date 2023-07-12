@@ -11,7 +11,6 @@ function LoginContainer() {
           HYPEX <h4> BANK</h4>{" "}
         </BankName>
         <h5>Internet Banking Login</h5>
-
         <LoginInput />
       </CardComponent>
     </LoginPage>
