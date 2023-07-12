@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from "../navComponent/navBar";
 import { styled } from "styled-components";
 import UserSideBar from "./loggedinMenu/userMenu";
+import { Outlet } from "react-router-dom";
 
 function UserNavBar() {
   return (
@@ -9,7 +10,9 @@ function UserNavBar() {
       <NavBar />
       <UserSection>
         <UserSideBar />
-        <div>other outlet</div>
+        <mian>
+          <Outlet />
+        </mian>
       </UserSection>
     </UserLogedinContainer>
   );
