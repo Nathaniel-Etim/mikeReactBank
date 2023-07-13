@@ -1,0 +1,8 @@
+.active {
+  color: rgba(165, 42, 42, 0.692);
+  text-decoration: underline;
+}
+
+.notActive {
+  color: white;
+}

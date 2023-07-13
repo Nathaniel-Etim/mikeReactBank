@@ -1,0 +1,40 @@
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import TheApp from "./components/navComponent/Nav";
+import HomeScreen from "./pages/homePage";
+import AboutPage from "./pages/aboutPage/aboutPage";
+import ContactPage from "./pages/contactPage/ContactPage";
+import LoginPage from "./pages/loginPage/LoginPage";
+import LoanPage from "./pages/loanpage/LoanPage";
+import LogedInNavBar from "./components/logedinComponent/logedinNavBar/logedInNavBar";
+import ServicePage from "./pages/servicePage/servicePage";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<TheApp />}>
+        <Route index element={<HomeScreen />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="Contact" element={<ContactPage />} />
+        <Route path="Loan" element={<LoanPage />} />
+        <Route path="Services" element={<ServicePage />} />
+      </Route>
+      {/* route to the login page */}
+      <Route path="Login" element={<LoginPage />} />
+
+      {/* route to when user is logedin */}
+      <Route path="logedIn" element={<LogedInNavBar />}>
+        {/*  */}
+      </Route>
+    </>
+  )
+);
+function App() {
+  return <RouterProvider router={router} />;
+}
+
+export default App;
