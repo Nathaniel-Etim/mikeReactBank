@@ -3,9 +3,12 @@ import { BsFilePdf, BsPlusCircle, BsWallet } from "react-icons/bs";
 import styled from "styled-components";
 import { Line } from "../ourServices/homeServices";
 import { Btn } from "../homecontent/homeLogin";
+import { useSelector } from "react-redux";
 // import { CardStyled } from "../../App";
 
 function FinancialOverview() {
+  const currentuser = useSelector((store) => store.event.currentAccount);
+
   const [finanacialCard, _setFinancialCard] = useState([
     {
       icon: <BsWallet />,
@@ -24,7 +27,7 @@ function FinancialOverview() {
         {element.icon}
         <FinancialCardContent>
           <h6>Avalable balance</h6>
-          <h4>$1,500,00</h4>
+          <h4>$ {currentuser.balance}</h4>
         </FinancialCardContent>
         <FinancialBtn>
           {element.text === "Make transfer" ? element.extraIcon : element.icon}

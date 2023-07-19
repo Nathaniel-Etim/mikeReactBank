@@ -3,9 +3,12 @@ import styled from "styled-components";
 import { Line } from "../ourServices/homeServices";
 import { BsDot } from "react-icons/bs";
 import { Btn } from "../homecontent/homeLogin";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Transactions(height) {
+  const currentuser = useSelector((store) => store.event.currentAccount);
+
   const path = useLocation().pathname;
   const [showButton, setShowButton] = useState(true);
   let text = "Show all transaction";
@@ -76,17 +79,16 @@ function Transactions(height) {
     navigate("/logedIn");
   }
 
-  const EachtransactionDetail = transaction.map((element) => {
+  const EachtransactionDetail = currentuser.movements.map((element, index) => {
     const transactionType = element.amount < 0 ? "Debit" : "Credit";
-
     return (
-      <CardStyled key={element.id}>
+      <CardStyled key={index}>
         <EachTranction>
           <FirstItem>
             <h3 className="date">{element.date}</h3>
           </FirstItem>
           <div>
-            <h3 className="userName">{element.name}</h3>
+            <h3 className="userName">{element.reciverName}</h3>
             <h4 className={`type type-${transactionType} spec`}>
               {transactionType}
             </h4>

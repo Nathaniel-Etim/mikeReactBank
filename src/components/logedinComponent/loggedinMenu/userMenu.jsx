@@ -13,9 +13,13 @@ import {
 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
 import { EventSliceAction } from "../../../store/EventStore";
 
 function UserSideBar() {
+  const currentuser = useSelector((store) => store.event.currentAccount);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -61,6 +65,8 @@ function UserSideBar() {
       Text: "Logout",
     },
   ]);
+  const statusType =
+    currentuser.accountStatus === "active" ? "type-active" : "type-inactive";
 
   function onGoToUserProfile() {
     navigate("userProfile");
@@ -69,11 +75,11 @@ function UserSideBar() {
   return (
     <SideBar>
       <UserDetails onClick={onGoToUserProfile}>
-        <h3>Nathaniel etim</h3>
+        <h3>{currentuser.name}</h3>
         <h6>
           Account status:
-          <span className="type-active">
-            active <BsDot className="icon " />
+          <span className={statusType}>
+            {currentuser.accountStatus} <BsDot className="icon " />
           </span>
         </h6>
       </UserDetails>

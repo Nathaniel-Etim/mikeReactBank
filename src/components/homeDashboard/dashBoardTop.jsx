@@ -1,32 +1,84 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import { BsDot } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 function DashBoardHeader() {
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
+  const [error, setError] = useState(null);
+  const currentuser = useSelector((store) => store.event.currentAccount);
+  const statusType =
+    currentuser.accountStatus === "active" ? "type-active" : "type-inactive";
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+
+    // Fetch user's location using the Geolocation API
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+
+          // Reverse geocoding to get country information
+          try {
+            const response = await fetch(
+              `https://geolocation-db.com/json/geoip.php?latitude=${latitude}&longitude=${longitude}`
+            );
+
+            if (!response.ok) {
+              throw new Error("Failed to fetch country information.");
+            }
+            const data = await response.json();
+            setCountry(data.country_name);
+          } catch (error) {
+            setError(error.message);
+          }
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by your browser.");
+    }
+    clearInterval(timer);
+  }, []);
+
+  const currentTime = currentDateTime.toLocaleTimeString();
+  const currentDate = currentDateTime.toLocaleDateString();
   return (
     <DashboardCard>
       <UserDetails>
         <DetailsLeft>
-          <h3>Nathaniel Joseph Etim</h3>
+          <h3>{currentuser.name}</h3>
           <h6>
             Account status:
-            <span className="type-active">
-              active <BsDot className="icon " />
+            <span className={statusType}>
+              {currentuser.accountStatus} <BsDot className="icon " />
             </span>
           </h6>
         </DetailsLeft>
         <DetailsRight>
-          <h4>$ 1,500,000</h4>
-          <h6>last updated on the 27th , may 2023</h6>
+          <h4>{currentuser.balance}</h4>
+          <h6>last updated on the {currentTime} </h6>
         </DetailsRight>
       </UserDetails>
       <DetailBottom>
         <BottomLeft>
-          <h6>Location: Lagos, Lagos, Nigeria. </h6>
-          <h6>Access/Time: 02:17 AM 14 Jul 2023</h6>
+          <h6>Location: {country} </h6>
+          <h6>
+            Access/Time: {currentTime} , {currentDate}
+          </h6>
         </BottomLeft>
         <BottomRight>
-          <h3>Account number : 2270055649</h3>
+          <h3>Account number : {currentuser.accountNumber}</h3>
           <h3>Account type : Savings </h3>
         </BottomRight>
       </DetailBottom>

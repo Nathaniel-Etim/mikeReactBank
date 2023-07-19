@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { EventSliceAction } from "../../store/EventStore";
 
 function LoginInput() {
-  const currentuser = useSelector((store) => store.event.currentAccount);
   const userExist = useSelector((store) => store.event.userCanLogin);
   const dispatch = useDispatch();
   const navigate = useNavigate();
