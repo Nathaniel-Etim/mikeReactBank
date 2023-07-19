@@ -1,14 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsFingerprint, BsPersonCircle } from "react-icons/bs";
 import { styled } from "styled-components";
 import { Btn } from "../homecontent/homeLogin";
 import { useNavigate } from "react-router-dom";
+import useBasicHook from "../../store/inputAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { EventSliceAction } from "../../store/EventStore";
 
 function LoginInput() {
+  const currentuser = useSelector((store) => store.event.currentAccount);
+  const userExist = useSelector((store) => store.event.userCanLogin);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const textCheck = (value) => value.trim() !== "";
+
+  const {
+    IsTouched: _accountNumberIsTouched,
+    IsTouchedFn: _accountNumberIsTouchedFn,
+    IsValid: _accountInputIsValid,
+    hasError: _accountInputHasError,
+    onChangeHandeler: _accountInputOnChangeHandelerFn,
+    value: _accountNumberValue,
+    resetFn: accountNumberReset,
+  } = useBasicHook(textCheck);
+
+  const {
+    IsTouched: _passwordIsTouched,
+    IsTouchedFn: _passwordIsTouchedFn,
+    IsValid: _PasswordIsValid,
+    hasError: _PasswordHasError,
+    onChangeHandeler: _PasswordOnChangeHandelerFn,
+    value: _passwordValue,
+    resetFn: paswordRest,
+  } = useBasicHook(textCheck);
+
+  const liginIsValid = _accountInputIsValid && _PasswordIsValid;
+
+  console.log(_accountNumberIsTouched);
 
   function onLogUserInHandelerFn() {
-    navigate("/logedIn");
+    paswordRest();
+    accountNumberReset();
+    if (!liginIsValid) {
+      paswordRest();
+      accountNumberReset();
+      return;
+    }
+    dispatch(
+      EventSliceAction.onLogUserHandelerFn({
+        password: +_passwordValue,
+        accountNumber: +_accountNumberValue,
+      })
+    );
+
+    // userExist ? navigate("/logedIn") :
+    if (userExist) {
+      navigate("/logedIn");
+      console.log(currentuser);
+    } else {
+      alert(`accoount number ${_accountNumberValue} does not exist`);
+    }
+    paswordRest();
+    accountNumberReset();
   }
 
   return (
@@ -17,14 +70,28 @@ function LoginInput() {
         <label>Account No:</label>
         <InputWrapper>
           <BsPersonCircle className="icon" />
-          <CustomInput type="text" pattern="[0-9]*" placeholder="1234567890" />
+          <CustomInput
+            type="text"
+            pattern="[0-9]*"
+            placeholder="Acount number"
+            value={_accountNumberValue}
+            onChange={_accountInputOnChangeHandelerFn}
+            onBlur={_accountNumberIsTouchedFn}
+          />
         </InputWrapper>
       </LabelWrapper>
       <LabelWrapper>
         <label>Password:</label>
         <InputWrapper>
           <BsFingerprint className="icon" />
-          <CustomInput type="text" pattern="[0-9]*" placeholder="1234567890" />
+          <CustomInput
+            type="text"
+            pattern="[0-9]*"
+            placeholder="1234567890"
+            value={_passwordValue}
+            onChange={_PasswordOnChangeHandelerFn}
+            onBlur={_passwordIsTouchedFn}
+          />
         </InputWrapper>
       </LabelWrapper>
       <LastDiv>
@@ -92,7 +159,7 @@ const InputWrapper = styled.div`
 
 const CustomInput = styled.input`
   outline: none;
-  background-color: whitesmoke;
+  background-color: transparent;
   border-radius: 3px;
   height: 30px;
   width: 80%;
@@ -105,6 +172,10 @@ const CustomInput = styled.input`
   .no-spinner::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  & .error {
+    background-color: red;
   }
 
   & :focus {
