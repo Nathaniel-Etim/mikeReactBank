@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { BsFingerprint, BsPersonCircle } from "react-icons/bs";
 import { styled } from "styled-components";
 import { Btn } from "../homecontent/homeLogin";
@@ -13,6 +13,16 @@ function LoginInput() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const textCheck = (value) => value.trim() !== "";
+
+  useEffect(() => {
+    if (userExist) {
+      GoToNextPage();
+    }
+  }, [userExist, navigate]);
+
+  function GoToNextPage() {
+    navigate("/logedIn");
+  }
 
   const {
     IsTouched: _accountNumberIsTouched,
@@ -53,13 +63,6 @@ function LoginInput() {
       })
     );
 
-    // userExist ? navigate("/logedIn") :
-    if (userExist) {
-      navigate("/logedIn");
-      console.log(currentuser);
-    } else {
-      alert(`accoount number ${_accountNumberValue} does not exist`);
-    }
     paswordRest();
     accountNumberReset();
   }

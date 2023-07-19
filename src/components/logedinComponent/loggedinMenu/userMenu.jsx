@@ -12,9 +12,13 @@ import {
   BsHouse,
 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { EventSliceAction } from "../../../store/EventStore";
 
 function UserSideBar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [menuItem, _setMenuUtem] = useState([
     {
       icon: <BsHouse className="icon" />,
@@ -90,6 +94,10 @@ function UserSideBar() {
           }
           if (item.Text === "Send Money") {
             navigate("transfers");
+          }
+          if (item.Text === "Logout") {
+            dispatch(EventSliceAction.onLogUserOut());
+            navigate("/Login");
           }
           return;
         }

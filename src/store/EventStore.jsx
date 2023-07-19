@@ -33,12 +33,16 @@ const EventSlice = createSlice({
       });
 
       if (!isAValidUser) {
-        console.log("'");
         return;
       } else {
         state.currentAccount = isAValidUser;
         state.userCanLogin = true;
       }
+    },
+
+    onLogUserOut(state) {
+      state.currentAccount = {};
+      state.userCanLogin = false;
     },
   },
 });
