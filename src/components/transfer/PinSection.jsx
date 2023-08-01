@@ -3,8 +3,14 @@ import styled from "styled-components";
 import { PopupContainer } from "../beneficiaries/addBeneficiary";
 import { BackDrop } from "./transferInput";
 import { Btn } from "../homecontent/homeLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { userInterfaceAction } from "../../store/UIstore";
+import { useNavigate } from "react-router-dom";
 
 function UserPin() {
+  const distatch = useDispatch();
+  const navigation = useNavigate();
+  const userPin = useSelector((state) => state.event.currentAccount);
   const [pin1, setPin1] = useState("");
   const [pin2, setPin2] = useState("");
   const [pin3, setPin3] = useState("");
@@ -41,6 +47,22 @@ function UserPin() {
       setPin4(numericValue.toString().slice(0, 1));
     }
   };
+
+  function hidePinMenu() {
+    const userInputPin = pin1 + pin2 + pin3 + pin4;
+
+    const isempty = userInputPin.trim() === "";
+
+    if ((userPin.password === +userInputPin) & !isempty) {
+      distatch(userInterfaceAction.hideUserPin());
+      navigation("/logedIn");
+    }
+
+    setPin1("");
+    setPin2("");
+    setPin3("");
+    setPin4("");
+  }
 
   return (
     <>
@@ -82,7 +104,7 @@ function UserPin() {
               maxLength={1}
             />
           </InputContainer>
-          <Btn>Continue</Btn>
+          <Btn onClick={hidePinMenu}>Continue</Btn>
         </UserPinContent>
       </PopupContainer>
     </>

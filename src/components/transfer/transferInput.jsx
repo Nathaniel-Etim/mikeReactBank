@@ -1,9 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { Btn } from "../homecontent/homeLogin";
+import { useDispatch } from "react-redux";
+import { userInterfaceAction } from "../../store/UIstore";
 // import {  } from "../beneficiaries/addBeneficiary";
 
 function TransactionInput() {
+  const dispatch = useDispatch();
+
+  function showUserPinMenuFn() {
+    dispatch(userInterfaceAction.showUserPin());
+  }
+
   return (
     <TransactionInputContainer>
       <TheInputContainer>
@@ -25,7 +33,7 @@ function TransactionInput() {
           <label> Routing Number:</label>
           <input type="Text" required className="input-error" />
         </InputContainerCustom>
-        <Btn>Transfer</Btn>
+        <Btn onClick={showUserPinMenuFn}>Transfer</Btn>
       </TheInputContainer>
     </TransactionInputContainer>
   );

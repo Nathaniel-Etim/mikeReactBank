@@ -6,7 +6,13 @@ const UserInterface = createSlice({
     showPinInput: false,
   },
   reducers: {
-    //
+    showUserPin(state) {
+      state.showPinInput = true;
+    },
+
+    hideUserPin(state) {
+      state.showPinInput = false;
+    },
   },
 });
 

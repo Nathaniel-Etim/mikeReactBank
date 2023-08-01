@@ -4,9 +4,11 @@ import styled from "styled-components";
 import { Line } from "../ourServices/homeServices";
 import { Btn } from "../homecontent/homeLogin";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // import { CardStyled } from "../../App";
 
 function FinancialOverview() {
+  const navigate = useNavigate();
   const currentuser = useSelector((store) => store.event.currentAccount);
 
   const [finanacialCard, _setFinancialCard] = useState([
@@ -22,8 +24,14 @@ function FinancialOverview() {
   ]);
 
   const eachUserCard = finanacialCard.map((element, index) => {
+    function goToItem() {
+      if (element.text === "Make transfer") {
+        navigate("/logedIn/transfers");
+      }
+      return;
+    }
     return (
-      <FinancialCard key={index}>
+      <FinancialCard key={index} onClick={goToItem}>
         {element.icon}
         <FinancialCardContent>
           <h6>Avalable balance</h6>

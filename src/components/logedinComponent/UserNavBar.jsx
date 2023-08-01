@@ -5,13 +5,15 @@ import UserSideBar from "./loggedinMenu/userMenu";
 import { Outlet } from "react-router-dom";
 import { Spinner } from "../beneficiaries/addBeneficiary";
 import UserPin from "../transfer/PinSection";
+import { useSelector } from "react-redux";
 
 function UserNavBar() {
+  const toggleUserPinInput = useSelector((state) => state.ui.showPinInput);
   return (
     <UserLogedinContainer>
       <NavBar />
       {/* <Spinner /> */}
-      {/* <UserPin /> */}
+      {toggleUserPinInput && <UserPin />}{" "}
       <UserSection>
         <UserSideBar />
         <OtherContent>
