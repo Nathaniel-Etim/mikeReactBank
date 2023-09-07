@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../navComponent/navBar";
 import { styled } from "styled-components";
 import UserSideBar from "./loggedinMenu/userMenu";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Spinner } from "../beneficiaries/addBeneficiary";
 import UserPin from "../transfer/PinSection";
 import { useSelector } from "react-redux";
 
 function UserNavBar() {
   const toggleUserPinInput = useSelector((state) => state.ui.showPinInput);
+  const userExist = useSelector((store) => store.event.userCanLogin);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userExist) {
+      navigate("/Login");
+    }
+  }, [userExist, navigate]);
+
   return (
     <UserLogedinContainer>
       <NavBar />

@@ -105,6 +105,16 @@ function UserSideBar() {
             dispatch(EventSliceAction.onLogUserOut());
             navigate("/Login");
           }
+          if (item.Text === "Messages") {
+            navigate("messages");
+          }
+          if (item.Text === "Help & Support") {
+            navigate("help");
+          }
+          if (item.Text === "Change Password") {
+            navigate("editPass");
+          }
+
           return;
         }
         return (

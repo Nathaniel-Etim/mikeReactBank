@@ -79,7 +79,7 @@ function Transactions(height) {
     navigate("/logedIn");
   }
 
-  const EachtransactionDetail = currentuser.movements.map((element, index) => {
+  const EachtransactionDetail = currentuser.movements?.map((element, index) => {
     const transactionType = element.amount < 0 ? "Debit" : "Credit";
     return (
       <CardStyled key={index}>

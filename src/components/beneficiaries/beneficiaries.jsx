@@ -33,7 +33,7 @@ function BeneficiariesContainer() {
 
 export default BeneficiariesContainer;
 
-const BeneficiaryContainerStyled = styled.div`
+export const BeneficiaryContainerStyled = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -41,7 +41,7 @@ const BeneficiaryContainerStyled = styled.div`
   padding: 1px 0 0 10px;
 `;
 
-const HeaderContainer = styled.div`
+export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 30px;

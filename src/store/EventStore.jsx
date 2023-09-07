@@ -105,7 +105,6 @@ const EventSlice = createSlice({
 
       if (isAValidUser) {
         state.currentAccount = isAValidUser;
-        console.log("entered");
         if (state.currentAccount.password === inputValues.password) {
           state.userCanLogin = true;
         }

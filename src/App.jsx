@@ -17,6 +17,9 @@ import TransactionPage from "./pages/transactionPage/TransactionPage";
 import UserProfile from "./pages/userProfile/userProfile";
 import BeneficiariesContainer from "./components/beneficiaries/beneficiaries";
 import TransaferPage from "./components/transfer/transaferContainer";
+import Message from "./components/dashBoardMessage/message";
+import HelpAndSupportComponent from "./components/homeDashboard/helpAndSupport";
+import EditUserPassword from "./components/editPasswordPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +31,7 @@ const router = createBrowserRouter(
         <Route path="Loan" element={<LoanPage />} />
         <Route path="Services" element={<ServicePage />} />
       </Route>
+
       {/* route to the login page */}
       <Route path="Login" element={<LoginPage />} />
 
@@ -38,6 +42,9 @@ const router = createBrowserRouter(
         <Route path="userProfile" element={<UserProfile />} />
         <Route path="beneficiaries" element={<BeneficiariesContainer />} />
         <Route path="transfers" element={<TransaferPage />} />
+        <Route path="messages" element={<Message />} />
+        <Route path="help" element={<HelpAndSupportComponent />} />
+        <Route path="editPass" element={<EditUserPassword />} />
       </Route>
     </>
   )
